@@ -1,6 +1,6 @@
 public class betterSort {
 
-    public static <E extends Comparable<E>> E[] betterQuickSort(E[] array, int low, int high) {
+    public static int[] betterQuickSort(int[] array, int low, int high) {
         int N = high - low + 1;
         if(N <= 3) {
             return manSort(array, low, high);
@@ -13,44 +13,72 @@ public class betterSort {
         return array;
     }
 
-    private static <E extends Comparable<E>> int partition(E[] array, int low, int high, int pivot) {
+    private static int partition(int[] array, int low, int high, int pivot) {
         // TODO
         return 0;
     }
 
-    private static <E extends Comparable<E>> int calcPivot(E[] array, int low, int high) {
-        // TODO
-        return 0;
+    public static int calcPivot(int[] array, int low, int high) {
+        int mid = ((low + high)/2);
+        int min1 = findMin(array, low, mid);
+        int min2 = findMin(array, mid, high);
+        int max1 = findMax(array, low, mid);
+        int max2 = findMax(array, mid, high);
+
+        int result = (min1 + min2 + max1 + max2) >> 3;
+        return result;
     }
 
-    private static <E extends Comparable<E>> E[] manSort(E[] array, int low, int high) {
+    private static int[] manSort(int[] array, int low, int high) {
         int N = high - low + 1;
         if(N <= 1) {
             return array;
         }
         if(N == 2) {
-            if((array[low].compareTo(array[high])) > 0) {
+            if(array[low] > array[high]) {
                 swap(array, low, high);
             }
         }
         if(N == 3) {
-            if((array[low].compareTo(array[high-1])) > 0) {
+            if(array[low] > array[high-1]) {
                 swap(array, low, high-1);
             }
         }
 
-        if((array[low].compareTo(array[high])) > 0) {
+        if(array[low] > array[high]) {
             swap(array, low, high);
         }
-        if((array[high-1].compareTo(array[high])) > 0) {
+        if(array[high-1] > array[high]) {
             swap(array, high-1, high);
         }
         return array;
     }
 
-    private static <E> void swap(E[] array, int i, int j) {
-        E temp = array[i];
+    private static void swap(int[] array, int i, int j) {
+        int temp = array[i];
         array[i] = array[j];
         array[j] = temp;
+    }
+
+    private static int findMin(int[] array, int low, int high) {
+        int min = array[low];
+        for(int i = low; i < high; i++) {
+            int current = array[i];
+            if(current < min) {
+                min = current;
+            }
+        }
+        return min;
+    }
+
+    private static int findMax(int[] array, int low, int high) {
+        int max = array[low];
+        for(int i = low; i < high; i++) {
+            int current = array[i];
+            if(current > max) {
+                max = current;
+            }
+        }
+        return max;
     }
 }

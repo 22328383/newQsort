@@ -1,21 +1,23 @@
 import org.junit.Test;
 
-import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.*;
 
 public class betterSortTest {
 
     @Test
     public void manualSort() {
-        Integer[] array1 = {3, 1, 2};
-        Integer[] expected1 = {1, 2, 3};
-
-        Double[] array2 = {99.42, 5.69};
-        Double[] expected2 = {5.69, 99.42};
+        int[] array1 = {3, 1, 2};
+        int[] expected1 = {1, 2, 3};
 
         betterSort.betterQuickSort(array1, 0, 2);
         assertArrayEquals(expected1, array1);
 
-        betterSort.betterQuickSort(array2, 0, 1);
-        assertArrayEquals(expected2, array2);
+    }
+
+    @Test
+    public void calcPivot() {
+        int[] array1 = {88,77,66,55,44,33,22,11};
+
+        assertEquals(24, betterSort.calcPivot(array1, 0, array1.length));
     }
 }
